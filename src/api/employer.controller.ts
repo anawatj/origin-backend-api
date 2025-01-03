@@ -1,5 +1,6 @@
 import { Body, Controller, Get, HttpStatus, ParseFilePipeBuilder, Post, Query, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor, NoFilesInterceptor } from "@nestjs/platform-express";
+import { diskStorage } from "multer";
 import { EmployorUploadRequest } from "src/domain/model/employors/request/employer.upload.request";
 import { RetreveEmployerResponse } from "src/domain/model/employors/response/employer.retreve.response";
 import { EmployerUploadResponse } from "src/domain/model/employors/response/employer.upload.response";
@@ -25,7 +26,11 @@ export class EmployerController {
 
     @Post('upload')
     @UseGuards(AuthGuard)
-    @UseInterceptors(FileInterceptor("file"))
+    @UseInterceptors(FileInterceptor("file",{
+        storage:diskStorage({
+            destination:'./files'
+        })
+    }))
     async uploadFile(@UploadedFile(
         new ParseFilePipeBuilder()
             .addFileTypeValidator({
