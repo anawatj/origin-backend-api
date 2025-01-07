@@ -5,23 +5,26 @@ import { EnveronmentConfig } from "src/domain/config/enveronment.config.interfac
 @Injectable()
 export class EnveronmentService implements DatabaseConfig,EnveronmentConfig{
     constructor(private configService:ConfigService){}
+    getJwtSecret(): string {
+        return this.configService.get<string>("JWT_SECRET");
+    }
     getEveronment(): string {
         return this.configService.get<string>("NODE_ENV");
     }
     getDatabaseHost(): string {
-        throw new Error("Method not implemented.");
+        return this.configService.get<string>("DATABASE_HOST");
     }
     getDatabasePort(): number {
-        throw new Error("Method not implemented.");
+        return this.configService.get<number>("DATABASE_PORT");
     }
     getDatabaseUser(): string {
-        throw new Error("Method not implemented.");
+        return this.configService.get<string>("DATABASE_USER");
     }
     getDatabasePassword(): string {
-        throw new Error("Method not implemented.");
+        return this.configService.get<string>("DATABASE_PASSWORD")
     }
     getDatabaseName(): string {
-        throw new Error("Method not implemented.");
+        return this.configService.get<string>("DATABASE_NAME")
     }
     
 }

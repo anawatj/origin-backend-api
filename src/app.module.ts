@@ -12,7 +12,7 @@ import { AutomapperModuleConfig } from './infrastructure/config/automapper/autom
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './infrastructure/entities/user';
 import { RetreveAllUserUsecase } from './usecases/users/retreve.all.users.usecases';
-import {JwtModuleConfig} from './infrastructure/config/jwt/jwt.config.module';
+import { JwtModuleConfig } from './infrastructure/config/jwt/jwt.config.module';
 import { HashUtil } from './infrastructure/common/hash.common';
 import { LoginAuthUsecases } from './usecases/auth/login.auth.usecases';
 import { AuthGuard } from './infrastructure/common/auth.common';
@@ -23,32 +23,33 @@ import { MuterModuleConfig } from './infrastructure/config/muter/muter.config.mo
 import { UploadEmployerUsecase } from './usecases/employers/upload.employers.usecases';
 import { Employer } from './infrastructure/entities/employer';
 import { RetreveAllEmployerUsecase } from './usecases/employers/retreve.all.employers.usecases';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
-    EnvironmentModule,
     TypeOrmModuleConfig,
-    TypeOrmModule.forFeature([User,Employer]),
+    TypeOrmModule.forFeature([User, Employer]),
     AutomapperModuleConfig,
     JwtModuleConfig,
     MuterModuleConfig
   ],
-  controllers: [AuthController,UserController,EmployerController],
+  controllers: [AuthController, UserController, EmployerController],
   providers: [{
-    provide:APP_FILTER,
-    useClass:AllExceptionFilter
+    provide: APP_FILTER,
+    useClass: AllExceptionFilter
   }
-  ,CreateUserUsecases
-  ,RetreveAllUserUsecase
-  ,RetreveByIdUserUsecase
-  ,PatchUserUsecase
-  ,LoginAuthUsecases
-  ,UploadEmployerUsecase
-  ,RetreveAllEmployerUsecase
-  ,MapperService
-  ,ResponseUtil
-  ,HashUtil
-  ,AuthGuard
+    , CreateUserUsecases
+    , RetreveAllUserUsecase
+    , RetreveByIdUserUsecase
+    , PatchUserUsecase
+    , LoginAuthUsecases
+    , UploadEmployerUsecase
+    , RetreveAllEmployerUsecase
+    , MapperService
+    , ResponseUtil
+    , HashUtil
+    , AuthGuard
+    , JwtService
   ],
 })
-export class AppModule {}
+export class AppModule { }
