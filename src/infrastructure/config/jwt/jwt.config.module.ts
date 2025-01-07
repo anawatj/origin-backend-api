@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
 import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
-import { EnveronmentConfig } from 'src/domain/config/enveronment.config.interface';
 import { EnveronmentService } from '../enveronment/enveronment.service';
 import { EnvironmentModule } from '../enveronment/enveronment.module';
 
-export const getJwtModuleOptions = (config: EnveronmentConfig): JwtModuleOptions =>
+export const getJwtModuleOptions = (config: EnveronmentService): JwtModuleOptions =>
 ({
   global: true,
-  secret: config.getEveronment(),
+  secret: config.getJwtSecret(),
   signOptions: { expiresIn: config.getJwtExpirationTime() },
 } as JwtModuleOptions);
 @Module({

@@ -3,7 +3,6 @@ import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionFilter } from './infrastructure/filters/exception.filter';
 import { AuthController } from './api/auth.controller';
 import { UserController } from './api/user.controller';
-import { EnvironmentModule } from './infrastructure/config/enveronment/enveronment.module';
 import { TypeOrmModuleConfig } from './infrastructure/config/typeorm/typeorm.config.module';
 import { MapperService } from './infrastructure/mapper/mapper.service';
 import { CreateUserUsecases } from './usecases/users/create.users.usecases';
@@ -24,6 +23,7 @@ import { UploadEmployerUsecase } from './usecases/employers/upload.employers.use
 import { Employer } from './infrastructure/entities/employer';
 import { RetreveAllEmployerUsecase } from './usecases/employers/retreve.all.employers.usecases';
 import { JwtService } from '@nestjs/jwt';
+import { EnveronmentService } from './infrastructure/config/enveronment/enveronment.service';
 
 @Module({
   imports: [
@@ -50,6 +50,7 @@ import { JwtService } from '@nestjs/jwt';
     , HashUtil
     , AuthGuard
     , JwtService
+    ,EnveronmentService
   ],
 })
 export class AppModule { }

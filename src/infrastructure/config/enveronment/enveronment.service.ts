@@ -9,6 +9,7 @@ export class EnveronmentService implements DatabaseConfig,EnveronmentConfig{
         return this.configService.get<number>("JWT_EXPIRATION_TIME");
     }
     getJwtSecret(): string {
+        console.log(this.configService.get<string>("JWT_SECRET"));
         return this.configService.get<string>("JWT_SECRET");
     }
     getEveronment(): string {
