@@ -3,25 +3,22 @@ version: '3.8'
 services:
   postgresdb:
     image: postgres
-    restart: unless-stopped
-    env_file: ./.env
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=1234
       - POSTGRES_DB=origin
     ports:
-      - $POSTGRESDB_LOCAL_PORT:5432
+      - "5432:5432"
     volumes:
       - db:/var/lib/postgres
-
+    
   app:
     depends_on:
       - postgresdb
     build: .
-    restart: unless-stopped
-    env_file: ./.env
     ports:
       - 3000:3000
+    command: bash -c "npm start"
     environment:
       - DATABASE_HOST=postgresdb
       - DATABASE_USER=postgres
@@ -30,8 +27,6 @@ services:
       - DATABASE_PORT=5432
       - JWT_SECRET=74YLbq4%c!wU
       - JWT_EXPIRATION_TIME=3600
-    stdin_open: true
-    tty: true
-
-volumes: 
+  
+volumes:
   db:
