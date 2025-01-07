@@ -5,6 +5,9 @@ import { EnveronmentConfig } from "src/domain/config/enveronment.config.interfac
 @Injectable()
 export class EnveronmentService implements DatabaseConfig,EnveronmentConfig{
     constructor(private configService:ConfigService){}
+    getJwtExpirationTime(): number {
+        return this.configService.get<number>("JWT_EXPIRATION_TIME");
+    }
     getJwtSecret(): string {
         return this.configService.get<string>("JWT_SECRET");
     }

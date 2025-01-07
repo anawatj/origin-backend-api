@@ -8,7 +8,7 @@ export const getJwtModuleOptions = (config: EnveronmentConfig): JwtModuleOptions
 ({
   global: true,
   secret: config.getEveronment(),
-  signOptions: { expiresIn: '60s' },
+  signOptions: { expiresIn: config.getJwtExpirationTime() },
 } as JwtModuleOptions);
 @Module({
   imports: [
