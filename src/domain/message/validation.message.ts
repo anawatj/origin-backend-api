@@ -10,3 +10,5 @@ export const ACCESS_TYPE_REQUIRED="access type must be provided";
 export const FULL_NAME_MUST_BE_STRING="full name must be string";
 export const UPDATE_FIELD_REQUIRED="update field must be provided";
 export const UPDATE_VALUE_REQUIRED="update value must be provided";
+export const EMPLOYER_NAME_MUST_BE_STRING="employer name must be string";
+export const EMPLOYER_NAME_REQUIRED="employer name must be provided";
