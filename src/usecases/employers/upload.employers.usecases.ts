@@ -1,6 +1,7 @@
 import { HttpStatus, Injectable, InternalServerErrorException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { readFileSync } from "fs";
+import { RESPONSE_SUCCESS } from "src/domain/message/response.message";
 import { EmployorUploadRequest } from "src/domain/model/employors/request/employer.upload.request";
 import { EmployerUploadResponse } from "src/domain/model/employors/response/employer.upload.response";
 import { AccessType } from "src/domain/model/enum/access-type.enum";
@@ -54,7 +55,7 @@ export class UploadEmployerUsecase {
         });
         await this.userRepository.save(dtcUserUpdates).catch((ex) => new InternalServerErrorException(ex.message));
         const responseData = new EmployerUploadResponse();
-        responseData.message = "Success";
+        responseData.message = RESPONSE_SUCCESS;
         return this.responseUtil.toResponse(responseData, HttpStatus.OK);
     }
 }

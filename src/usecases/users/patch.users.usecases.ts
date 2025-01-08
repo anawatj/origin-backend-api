@@ -11,6 +11,7 @@ import { ResponseUtil } from "../../infrastructure/common/response.common";
 import { HashUtil } from "../../infrastructure/common/hash.common";
 import { PatchUserResponse } from "src/domain/model/users/response/user.patch.response";
 import { PatchUserRequest } from "src/domain/model/users/request/user.patch.request";
+import { USER_NOT_FOUND } from "src/domain/message/validation.message";
 
 @Injectable()
 export class PatchUserUsecase {
@@ -25,7 +26,7 @@ export class PatchUserUsecase {
     async execute( patches:PatchUserRequest[],id:number):Promise<ResponseSuccess<PatchUserResponse>>{
         const user = await this.userRepository.findOneByOrFail({id:id});
         if(!user){
-            throw new NotFoundException("User not found");
+            throw new NotFoundException(USER_NOT_FOUND);
         }
         patches.forEach(patch=>{
             user[patch.field]=patch.value;

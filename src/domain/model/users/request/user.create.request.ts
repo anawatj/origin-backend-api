@@ -2,34 +2,35 @@ import {  IsDateString, IsDefined, IsEmail, IsEnum, IsNotEmpty,  IsNumber, IsNum
 import { AccessType } from "../../enum/access-type.enum";
 import { Expose } from "class-transformer";
 import { AutoMap } from "@automapper/classes";
+import { ACCESS_TYPE_REQUIRED, COUNTRY_REQUIRED, EMAIL_REQUIRED, FULL_NAME_MUST_BE_STRING, PASSWORD_REQUIRED } from "src/domain/message/validation.message";
 
 export class CreateUserRequest {
     @AutoMap()
     @IsEmail()
-    @IsNotEmpty({message:"email must be provided"})
-    @IsDefined({message:"email must be provided"})
+    @IsNotEmpty({message:EMAIL_REQUIRED})
+    @IsDefined({message:EMAIL_REQUIRED})
     email: string;
 
     @AutoMap()
-    @IsNotEmpty({message:"password must be provided"})
-    @IsDefined({message:"password must be provided"})
+    @IsNotEmpty({message:PASSWORD_REQUIRED})
+    @IsDefined({message:PASSWORD_REQUIRED})
     @Length(8)
     password: string;
 
     @AutoMap()
-    @IsNotEmpty({message:"country must be provided"})
-    @IsDefined({message:"country must be provided"})
+    @IsNotEmpty({message:COUNTRY_REQUIRED})
+    @IsDefined({message:COUNTRY_REQUIRED})
     country: string;
 
     @AutoMap()
-    @IsNotEmpty({message:"access type must be provided"})
+    @IsNotEmpty({message:ACCESS_TYPE_REQUIRED})
     @IsEnum(AccessType)
-    @IsDefined({message:"access type must be provided"})
+    @IsDefined({message:ACCESS_TYPE_REQUIRED})
     @Expose({ name: "access_type" })
     accessType: AccessType;
 
     @AutoMap()
-    @IsString({message:"full name must be string"})
+    @IsString({message:FULL_NAME_MUST_BE_STRING})
     @Expose({ name: "full_name" })
     fullName: string | undefined;
 

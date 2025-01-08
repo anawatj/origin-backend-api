@@ -8,6 +8,7 @@ import { ResponseUtil } from "../../infrastructure/common/response.common";
 import { User } from "src/infrastructure/entities/user";
 import { Repository } from "typeorm";
 import { UserRetreveAllRequest } from "src/domain/model/users/request/user.retreve.all.request";
+import { USER_NOT_FOUND } from "src/domain/message/validation.message";
 
 @Injectable()
 export class RetreveAllUserUsecase {
@@ -23,7 +24,7 @@ export class RetreveAllUserUsecase {
         }
         const users: User[] = await this.userRepository.findBy(where);
         if (users.length == 0) {
-            throw new NotFoundException("User Not Found")
+            throw new NotFoundException(USER_NOT_FOUND)
         }
 
         const responseData = users.length > 1 ?

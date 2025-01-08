@@ -7,6 +7,7 @@ import { RetreveUserResponse } from "../../domain/model/users/response/user.retr
 import { ResponseUtil } from "../../infrastructure/common/response.common";
 import { User } from "src/infrastructure/entities/user";
 import { Repository } from "typeorm";
+import { USER_NOT_FOUND } from "src/domain/message/validation.message";
 
 @Injectable()
 export class RetreveByIdUserUsecase{
@@ -18,7 +19,7 @@ export class RetreveByIdUserUsecase{
     async execute(id:number):Promise<ResponseSuccess<RetreveUserResponse>>{
         const user = await this.userRepository.findOneByOrFail({id:id}).catch((reason)=>new InternalServerErrorException(reason));
         if(!user){
-            throw new NotFoundException("User Not Found");
+            throw new NotFoundException(USER_NOT_FOUND);
         }
         const responseData =await this.mapper.mapAsync(user,User,RetreveUserResponse);
         return this.responseUtil.toResponse(responseData,HttpStatus.OK);
