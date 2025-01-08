@@ -8,11 +8,13 @@ import { ResponseSuccess } from "../../domain/model/response/response.success";
 import { HashUtil } from "../../infrastructure/common/hash.common";
 import { JwtService } from '@nestjs/jwt';
 import { ResponseUtil } from "src/infrastructure/common/response.common";
+import { EnveronmentService } from "src/infrastructure/config/enveronment/enveronment.service";
 
 @Injectable()
 export class LoginAuthUsecases {
     constructor(
         @InjectRepository(User) private userRepository:Repository<User>,
+        private enveronmentService:EnveronmentService,
         private responseUtil:ResponseUtil<LoginResponse>,
         private hashUtil:HashUtil,
         private jwtService: JwtService
@@ -27,7 +29,7 @@ export class LoginAuthUsecases {
             }
             const payload = { sub: user.id, email: user.email };
             const responseData = new LoginResponse();
-            responseData.token=await this.jwtService.signAsync(payload);
+            responseData.token=await this.jwtService.signAsync(payload,{secret:this.enveronmentService.getJwtSecret()});
             return this.responseUtil.toResponse(responseData,HttpStatus.OK);
        }else{
          throw new UnauthorizedException("Login Failed");
